@@ -1,0 +1,34 @@
+- Effect: "Allow"
+  Action:
+    - "ses:SendEmail"
+  Resource:
+    - "*"
+  Condition:
+    StringEquals:
+      ses:FromAddress:
+        - "matthias@steinbauer.org"
+- Effect: Allow
+  Action:
+    - dynamodb:DescribeTable
+    - dynamodb:Query
+    - dynamodb:Scan
+    - dynamodb:GetItem
+    - dynamodb:PutItem
+    - dynamodb:UpdateItem
+    - dynamodb:DeleteItem
+  Resource:
+    - 'Fn::ImportValue': ${self:custom.stage}-NotesTableArn
+- Effect: Allow
+  Action:
+    - s3:GetObject
+    - s3:GetObjectAcl
+    - s3:DeleteObject
+    - s3:PutObject
+    - s3:PutObjectAcl
+  Resource:
+    - "arn:aws:s3:::hagenberg-${self:custom.stage}-attachments/*"
+- Effect: Allow
+  Action:
+    - s3:ListBucket
+  Resource:
+    - 'Fn::ImportValue': ${self:custom.stage}-AttachmentsBucketArn

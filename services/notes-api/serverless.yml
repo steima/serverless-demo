@@ -1,0 +1,58 @@
+service:
+  name: hagenberg-notes-api
+
+plugins:
+  - serverless-webpack
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+
+provider:
+  name: aws
+  region: eu-west-1
+  endpointType: regional
+  runtime: nodejs10.x
+  profile: whistleblower-serverless-admin
+  iamRoleStatements: ${file(../common/common.yml)}
+
+functions:
+  createNote:
+    handler: api.createNote
+    events:
+      - http:
+          method: post
+          path: notes
+          cors:
+            origin: '*'
+  listNotes:
+    handler: api.listNotes
+    events:
+      - http:
+          method: get
+          path: notes
+          cors:
+            origin: '*'
+  getNote:
+    handler: api.getNote
+    events:
+      - http:
+          method: get
+          path: notes/{uuid}
+          cors:
+            origin: '*'
+  putNote:
+    handler: api.putNote
+    events:
+      - http:
+          method: put
+          path: notes/{uuid}
+          cors:
+            origin: '*'
+  deleteNote:
+    handler: api.deleteNote
+    events:
+      - http:
+          method: delete
+          path: notes/{uuid}
+          cors:
+            origin: '*'

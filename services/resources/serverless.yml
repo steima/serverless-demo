@@ -1,0 +1,32 @@
+service:
+  name: hagenberg-resources
+
+plugins:
+  - serverless-webpack
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+
+provider:
+  name: aws
+  region: eu-west-1
+  endpointType: regional
+  runtime: nodejs10.x
+  profile: whistleblower-serverless-admin
+
+resources:
+  - ${file(cognito/user-pool.yml)}
+  - ${file(cognito/user-pool-client.yml)}
+  - ${file(cognito/cognito-authorizer.yml)}
+  - ${file(dynamodb/table.yml)}
+  - ${file(s3/bucket.yml)}
+
+functions:
+  health-check:
+    handler: api.healthCheck
+    events:
+      - http:
+          method: get
+          path: health-check
+          cors:
+            origin: '*'

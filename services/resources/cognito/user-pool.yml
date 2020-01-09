@@ -1,0 +1,28 @@
+Resources:
+  CognitoUserPool:
+    Type: "AWS::Cognito::UserPool"
+    Properties:
+      MfaConfiguration: OFF
+      UserPoolName: ${self:custom.stage}-hagenberg-user-pool
+      UsernameAttributes:
+        - email
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 6
+          RequireLowercase: False
+          RequireNumbers: True
+          RequireSymbols: False
+          RequireUppercase: True
+Outputs:
+  UserPoolId:
+    Value:
+      Ref: CognitoUserPool
+    Export:
+      Name: hagenberg-CognitoUserPoolName
+  UserPoolArn:
+    Value:
+      Fn::GetAtt:
+        - CognitoUserPool
+        - Arn
+    Export:
+      Name: hagenberg-CognitoUserPoolArn

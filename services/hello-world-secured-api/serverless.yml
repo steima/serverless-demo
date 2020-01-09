@@ -1,0 +1,33 @@
+service:
+  name: hagenberg-test-api
+
+plugins:
+  - serverless-webpack
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+
+provider:
+  name: aws
+  region: eu-west-1
+  endpointType: regional
+  runtime: nodejs10.x
+  profile: whistleblower-serverless-admin
+  iamRoleStatements: ${file(../common/common.yml)}
+
+resources:
+  - ${file(../common/cognito-authorizer.yml)}
+
+functions:
+  test-function:
+    handler: api.test
+    events:
+      - http:
+          method: get
+          path: test
+          cors:
+            origin: '*'
+          authorizer:
+            type: COGNITO_USER_POOLS
+            authorizerId:
+              Ref: ApiGatewayAuthorizer

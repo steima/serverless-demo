@@ -1,0 +1,34 @@
+Resources:
+  AttachmentsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: hagenberg-${self:custom.stage}-attachments
+      AccessControl: Private
+      CorsConfiguration:
+        CorsRules:
+          -
+            AllowedOrigins:
+              - '*'
+            AllowedHeaders:
+              - '*'
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            MaxAge: 3000
+
+Outputs:
+  AttachmentsBucketName:
+    Value:
+      Ref: AttachmentsBucket
+    Export:
+      Name: ${self:custom.stage}-AttachmentsBucketName
+  AttachmentsBucketArn:
+    Value:
+      Fn::GetAtt:
+        - AttachmentsBucket
+        - Arn
+    Export:
+      Name: ${self:custom.stage}-AttachmentsBucketArn
