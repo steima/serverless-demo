@@ -11,8 +11,8 @@ provider:
   name: aws
   region: eu-west-1
   endpointType: regional
-  runtime: nodejs10.x
-  profile: whistleblower-serverless-admin
+  runtime: nodejs14.x
+  profile: private
   iamRoleStatements: ${file(../common/common.yml)}
 
 functions:
