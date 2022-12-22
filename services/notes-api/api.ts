@@ -21,7 +21,7 @@ export const getNote: APIGatewayProxyHandler = async (event, _context) => {
     return Responses.success(note);
 }
 
-export const updateNote: APIGatewayProxyHandler = async (event, _context) => {
+export const putNote: APIGatewayProxyHandler = async (event, _context) => {
     const uuid = event.pathParameters['uuid'];
     const note = <Note>Requests.body(event);
     if(uuid !== note.uuid) {

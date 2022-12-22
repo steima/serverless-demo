@@ -1,5 +1,4 @@
-service:
-  name: hagenberg-notes-api
+service: hagenberg-notes-api
 
 plugins:
   - serverless-webpack

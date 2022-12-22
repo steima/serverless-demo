@@ -1,5 +1,4 @@
-service:
-  name: hagenberg-test-api
+service: hagenberg-test-api
 
 plugins:
   - serverless-webpack
@@ -12,6 +11,7 @@ provider:
   region: eu-west-1
   endpointType: regional
   runtime: nodejs14.x
+  # Make sure you set a working profile here
   profile: private
 
 functions:

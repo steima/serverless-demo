@@ -1,5 +1,4 @@
-service:
-  name: hagenberg-resources
+service: hagenberg-resources
 
 plugins:
   - serverless-webpack
