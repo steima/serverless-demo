@@ -1,15 +1,18 @@
-import { DynamoDB } from 'aws-sdk';
+import {DynamoDBClient} from "@aws-sdk/client-dynamodb";
 import {v4 as uuid} from 'uuid';
-import { getStage } from './helper';
+import {getStage} from './helper';
 import {Note, NoteBody} from './note';
+import {DynamoDBDocumentClient, DeleteCommand, GetCommand, PutCommand, ScanCommand} from "@aws-sdk/lib-dynamodb";
 
 class NotesRepository {
 
-    private dynamoDb: DynamoDB.DocumentClient;
+    private dynamoDbClient: DynamoDBClient;
+    private dynamoDbDocumentClient: DynamoDBDocumentClient;
     private readonly tableName: string;
 
     constructor() {
-        this.dynamoDb = new DynamoDB.DocumentClient();
+        this.dynamoDbClient = new DynamoDBClient({});
+        this.dynamoDbDocumentClient = DynamoDBDocumentClient.from(this.dynamoDbClient);
         this.tableName = `hagenberg-${getStage()}-notes`;
     }
 
@@ -22,50 +25,47 @@ class NotesRepository {
     }
 
     public async getNote(uuid: string): Promise<Note> {
-        const p = {
+        const command = new GetCommand({
             TableName: this.tableName,
             Key: {
                 uuid: uuid
             }
-        };
-        return this.dynamoDb.get(p).promise().then((response) => {
-            return <Note>response.Item;
         });
+        const result = await this.dynamoDbDocumentClient.send(command);
+        return <Note>result.Item;
     }
 
     public async putNote(note: Note): Promise<Note> {
-        const p = {
+        const command =  new PutCommand({
             TableName: this.tableName,
             Item: note
-        };
-        await this.dynamoDb.put(p).promise();
+        });
+        await this.dynamoDbDocumentClient.send(command);
         return note;
     }
 
     public async listNotes(): Promise<Note[]> {
-        const p = {
+        const command = new ScanCommand({
             TableName: this.tableName,
-        };
-        return this.dynamoDb.scan(p).promise().then((r) => {
-            if(r.Items) {
-                return r.Items.map((u) => { return u as Note; });
-            }else{
-                return Promise.reject();
-            }
         });
+        const result = await this.dynamoDbDocumentClient.send(command);
+        if (result.Items) {
+            console.log(result);
+            return result.Items.map((u) => u as Note);
+        }
+        throw new Error("No notes found");
     }
 
     public async deleteNote(uuid: string): Promise<Note> {
         const currentNote = this.getNote(uuid);
-        const p = {
+        const command = new DeleteCommand({
             TableName: this.tableName,
             Key: {
                 uuid: uuid
             }
-        };
-        return this.dynamoDb.delete(p).promise().then(() => {
-            return currentNote;
         });
+        await this.dynamoDbDocumentClient.send(command);
+        return currentNote;
     }
 
 }

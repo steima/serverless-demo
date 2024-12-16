@@ -1,7 +1,7 @@
 service: hagenberg-resources
 
 plugins:
-  - serverless-webpack
+  - serverless-esbuild
 
 custom:
   stage: ${opt:stage, self:provider.stage}
@@ -10,7 +10,7 @@ provider:
   name: aws
   region: eu-west-1
   endpointType: regional
-  runtime: nodejs14.x
+  runtime: nodejs18.x
   profile: private
 
 resources:
