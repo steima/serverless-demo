@@ -3,6 +3,6 @@ export interface NoteBody {
     body?: string;
 }
 
-export interface Note extends NoteBody{
+export interface Note extends NoteBody {
     uuid: string;
 }

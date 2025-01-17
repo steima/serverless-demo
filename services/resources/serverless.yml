@@ -1,4 +1,4 @@
-service: hagenberg-resources
+service: STUDENT-ID-resources
 
 plugins:
   - serverless-esbuild
@@ -9,7 +9,7 @@ custom:
 provider:
   name: aws
   region: eu-west-1
-  endpointType: regional
+  endpointType: REGIONAL
   runtime: nodejs18.x
   profile: private
 

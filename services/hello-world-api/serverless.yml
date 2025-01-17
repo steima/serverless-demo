@@ -1,4 +1,4 @@
-service: hagenberg-test-api
+service: STUDENT-ID-test-api
 
 plugins:
   - serverless-esbuild
@@ -9,10 +9,8 @@ custom:
 provider:
   name: aws
   region: eu-west-1
-  endpointType: regional
+  endpointType: REGIONAL
   runtime: nodejs18.x
-  # Make sure you set a working profile here
-  profile: private
 
 functions:
   test-function:

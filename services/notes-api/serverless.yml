@@ -1,4 +1,4 @@
-service: hagenberg-notes-api
+service: STUDENT-ID-notes-api
 
 plugins:
   - serverless-esbuild
@@ -9,7 +9,7 @@ custom:
 provider:
   name: aws
   region: eu-west-1
-  endpointType: regional
+  endpointType: REGIONAL
   runtime: nodejs18.x
   profile: private
   iamRoleStatements: ${file(../common/common.yml)}
