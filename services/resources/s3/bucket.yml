@@ -2,7 +2,7 @@ Resources:
   AttachmentsBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: hagenberg-${self:custom.stage}-attachments
+      BucketName: ${self:custom.stage}-attachments
       AccessControl: Private
       CorsConfiguration:
         CorsRules:

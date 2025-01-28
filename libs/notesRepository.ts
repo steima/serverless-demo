@@ -13,7 +13,7 @@ class NotesRepository {
     constructor() {
         this.dynamoDbClient = new DynamoDBClient({});
         this.dynamoDbDocumentClient = DynamoDBDocumentClient.from(this.dynamoDbClient);
-        this.tableName = `hagenberg-${getStage()}-notes`;
+        this.tableName = `${getStage()}-notes`;
     }
 
     public async createNote(noteBody: NoteBody): Promise<Note> {

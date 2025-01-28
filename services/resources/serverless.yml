@@ -4,7 +4,7 @@ plugins:
   - serverless-esbuild
 
 custom:
-  stage: ${opt:stage, self:provider.stage}
+  stage: STUDENT-ID
 
 provider:
   name: aws

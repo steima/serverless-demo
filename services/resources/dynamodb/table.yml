@@ -2,7 +2,7 @@ Resources:
   NotesTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: hagenberg-${self:custom.stage}-notes
+      TableName: ${self:custom.stage}-notes
       AttributeDefinitions:
         - AttributeName: uuid
           AttributeType: S

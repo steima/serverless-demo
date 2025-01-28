@@ -3,7 +3,7 @@ Resources:
     Type: "AWS::Cognito::UserPool"
     Properties:
       MfaConfiguration: OFF
-      UserPoolName: ${self:custom.stage}-hagenberg-user-pool
+      UserPoolName: ${self:custom.stage}-user-pool
       UsernameAttributes:
         - email
       Policies:
@@ -18,11 +18,11 @@ Outputs:
     Value:
       Ref: CognitoUserPool
     Export:
-      Name: hagenberg-CognitoUserPoolName
+      Name: ${self:custom.stage}-CognitoUserPoolName
   UserPoolArn:
     Value:
       Fn::GetAtt:
         - CognitoUserPool
         - Arn
     Export:
-      Name: hagenberg-CognitoUserPoolArn
+      Name: ${self:custom.stage}-CognitoUserPoolArn

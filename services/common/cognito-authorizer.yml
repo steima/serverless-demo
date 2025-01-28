@@ -10,7 +10,7 @@ Resources:
         Ref: ApiGatewayRestApi
       Type: COGNITO_USER_POOLS
       ProviderARNs:
-        - 'Fn::ImportValue': hagenberg-CognitoUserPoolArn
+        - 'Fn::ImportValue': ${self:custom.stage}-CognitoUserPoolArn
   GatewayResponseDefault4XX:
     Type: 'AWS::ApiGateway::GatewayResponse'
     Properties:

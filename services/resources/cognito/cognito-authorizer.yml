@@ -16,4 +16,4 @@ Outputs:
     Value:
       Ref: ApiGatewayAuthorizer
     Export:
-      Name: hagenberg-ApiGatewayAuthorizerId
+      Name: ${self:custom.stage}-ApiGatewayAuthorizerId

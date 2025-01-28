@@ -4,7 +4,7 @@ plugins:
   - serverless-esbuild
 
 custom:
-  stage: ${opt:stage, self:provider.stage}
+  stage: STUDENT-ID
 
 provider:
   name: aws
@@ -12,6 +12,10 @@ provider:
   endpointType: REGIONAL
   runtime: nodejs18.x
   iamRoleStatements: ${file(../common/common.yml)}
+  environment:
+    STAGE: ${self:custom.stage}
+    NODE_OPTIONS: "--enable-source-maps"
+
 
 functions:
   createNote:
