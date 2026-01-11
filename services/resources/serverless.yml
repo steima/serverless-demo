@@ -10,7 +10,8 @@ provider:
   name: aws
   region: eu-west-1
   endpointType: REGIONAL
-  runtime: nodejs18.x
+  runtime: nodejs20.x
+  profile: hagenberg
 
 resources:
   - ${file(cognito/user-pool.yml)}

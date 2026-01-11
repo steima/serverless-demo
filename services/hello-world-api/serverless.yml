@@ -1,16 +1,14 @@
-service: STUDENT-ID-test-api
-
-plugins:
-  - serverless-esbuild
+service: matthias-test-api
 
 custom:
-  stage: STUDENT-ID
+  stage: dev
 
 provider:
   name: aws
   region: eu-west-1
   endpointType: REGIONAL
-  runtime: nodejs18.x
+  runtime: nodejs20.x
+  profile: hagenberg
 
 functions:
   test-function:

@@ -16,13 +16,19 @@ export const listNotes: APIGatewayProxyHandler = async (_event, _context) => {
 }
 
 export const getNote: APIGatewayProxyHandler = async (event, _context) => {
-    const uuid = event.pathParameters['uuid'];
+    const uuid = event.pathParameters?.['uuid'];
+    if (!uuid) {
+        return Responses.error(400, 'Missing uuid parameter');
+    }
     const note = await notesRepository.getNote(uuid);
     return Responses.success(note);
 }
 
 export const putNote: APIGatewayProxyHandler = async (event, _context) => {
-    const uuid = event.pathParameters['uuid'];
+    const uuid = event.pathParameters?.['uuid'];
+    if (!uuid) {
+        return Responses.error(400, 'Missing uuid parameter');
+    }
     const note = <Note>Requests.body(event);
     if(uuid !== note.uuid) {
         return Responses.error(409, `UUID in body and on request path did not match.`);
@@ -32,7 +38,10 @@ export const putNote: APIGatewayProxyHandler = async (event, _context) => {
 }
 
 export const deleteNote: APIGatewayProxyHandler = async (event, _context) => {
-    const uuid = event.pathParameters['uuid'];
+    const uuid = event.pathParameters?.['uuid'];
+    if (!uuid) {
+        return Responses.error(400, 'Missing uuid parameter');
+    }
     const note = await notesRepository.deleteNote(uuid);
     return Responses.success(note);
 }

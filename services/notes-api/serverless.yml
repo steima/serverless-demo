@@ -10,8 +10,9 @@ provider:
   name: aws
   region: eu-west-1
   endpointType: REGIONAL
-  runtime: nodejs18.x
+  runtime: nodejs20.x
   iamRoleStatements: ${file(../common/common.yml)}
+  profile: hagenberg
   environment:
     STAGE: ${self:custom.stage}
     NODE_OPTIONS: "--enable-source-maps"
