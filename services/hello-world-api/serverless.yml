@@ -1,6 +1,15 @@
 service: matthias-test-api
 
+plugins:
+  - serverless-esbuild
+
 custom:
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: true
+    target: node20
+    platform: node
   stage: dev
 
 provider:

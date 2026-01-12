@@ -1,9 +1,16 @@
 service: STUDENT-ID-testS-api
 
+
 plugins:
   - serverless-esbuild
 
 custom:
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: true
+    target: node20
+    platform: node
   stage: STUDENT-ID
 
 provider:
